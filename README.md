@@ -16,3 +16,6 @@ A simple GUI wrapper for Bruker's CompassXport batch file conversion tool
 3. Select the desired output folder.
 4. Select the desired file format to convert to and whether or not peaks should be centroided.
 5. Click ```Run``` to begin conversion.
+
+#### To Do
+* Add menu option to choose CompassXport executable path and write to config file.
