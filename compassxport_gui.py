@@ -32,7 +32,7 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(382, 420)
+        MainWindow.resize(382, 431)
         font = QtGui.QFont()
         font.setPointSize(12)
         MainWindow.setFont(font)
@@ -99,7 +99,17 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
-        MainWindow.setStatusBar(self.statusbar)
+        MainWindow.setStatusBar(self.statusbar)		
+        self.menuBar = QtGui.QMenuBar(MainWindow)
+        self.menuBar.setGeometry(QtCore.QRect(0, 0, 383, 21))
+        self.menuBar.setObjectName(_fromUtf8("menuBar"))
+        self.menuOptions = QtGui.QMenu(self.menuBar)
+        self.menuOptions.setObjectName(_fromUtf8("menuOptions"))
+        MainWindow.setMenuBar(self.menuBar)
+        self.actionChange_CompassXport_exe_Location = QtGui.QAction(MainWindow)
+        self.actionChange_CompassXport_exe_Location.setObjectName(_fromUtf8("actionChange_CompassXport_exe_Location"))
+        self.menuOptions.addAction(self.actionChange_CompassXport_exe_Location)
+        self.menuBar.addAction(self.menuOptions.menuAction())
 
         self.args = {}
         self.path = ''
@@ -109,8 +119,18 @@ class Ui_MainWindow(object):
         QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL('clicked()'), self.get_input_path)
         QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL('clicked()'), self.get_output_path)
         QtCore.QObject.connect(self.pushButton_3, QtCore.SIGNAL('clicked()'), self.convert)
+        QtCore.QObject.connect(self.actionChange_CompassXport_exe_Location, QtCore.SIGNAL('triggered()'), self.get_file)
 
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def get_file(self):
+        exe = QtGui.QFileDialog.getOpenFileName(None, 'Select Directory', 'C:\\')
+        exe = str(exe).replace('/', '\\')
+        config = ConfigParser.RawConfigParser()
+        config.add_section('compassxport')
+        config.set('compassxport', 'path', exe)
+        with open(os.path.dirname(__file__) + '/config.ini', 'w') as config_file:
+            config.write(config_file)
 
     def get_input_path(self):
         sample_directory = QtGui.QFileDialog.getExistingDirectory(None, 'Select File/Directory', 'C:\\')
@@ -137,8 +157,6 @@ class Ui_MainWindow(object):
                             error_box.setText('Error: CompassXportConsole.exe not found. Verify config.ini path.')
                             error_box.setWindowTitle('CompassXport GUI Wrapper')
                             error_box.exec_()
-                            sys.exit(1)
-
 
     def get_args(self):
         if self.lineEdit.text().endsWith('.d'):
@@ -169,14 +187,16 @@ class Ui_MainWindow(object):
 
     def convert(self):
         self.get_args()
-        cmd = '"' + self.path + '" '
-        for key, value in self.args.iteritems():
-            cmd += '-' + key + ' '
-            if ' ' in value:
-                cmd += '"' + value + '" '
-            else:
-                cmd += value + ' '
-        subprocess.call(cmd, creationflags=subprocess.CREATE_NEW_CONSOLE)
+        self.get_compassxport_path()
+        if os.path.isfile(self.path):
+            cmd = '"' + self.path + '" '
+            for key, value in self.args.iteritems():
+                cmd += '-' + key + ' '
+                if ' ' in value:
+                    cmd += '"' + value + '" '
+                else:
+                    cmd += value + ' '
+            subprocess.call(cmd, creationflags=subprocess.CREATE_NEW_CONSOLE)
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "CompassXport GUI Wrapper", None))
@@ -195,6 +215,9 @@ class Ui_MainWindow(object):
         self.label_4.setText(_translate("MainWindow", "Output Format", None))
         self.checkBox.setText(_translate("MainWindow", "Verbose", None))
         self.pushButton_3.setText(_translate("MainWindow", "Run", None))
+        self.menuOptions.setTitle(_translate("MainWindow", "Options", None))
+        self.actionChange_CompassXport_exe_Location.setText(
+            _translate("MainWindow", "Change CompassXport.exe Location", None))
 
 
 def main():

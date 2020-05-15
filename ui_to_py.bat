@@ -1,1 +1,0 @@
-pyuic4 compassxport_gui.ui > compassxport_gui.py
