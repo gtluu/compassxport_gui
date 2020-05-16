@@ -3,7 +3,7 @@
 A simple GUI wrapper for Bruker's CompassXport batch file conversion tool
 
 ## Easy Setup
-Download the files [here](https://github.com/gtluu/compassxport_gui/raw/master/exe/compassxport_gui.zip) ([mirror](compassxport_gui.zip	34.3 MBhttps://mega.nz/file/Cs5CnaCD#NXSk4vjT1ZXoCQRLTP3F_61NxJqTc56-X3es9HIlKg0)) and unzip.
+Download the files [here](https://github.com/gtluu/compassxport_gui/raw/master/exe/compassxport_gui.zip) ([mirror](https://mega.nz/file/Cs5CnaCD#NXSk4vjT1ZXoCQRLTP3F_61NxJqTc56-X3es9HIlKg0)) and unzip.
 
 ## Advanced Setup
 1. Download the files in this repo and unzip.
