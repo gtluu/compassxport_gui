@@ -15,7 +15,7 @@ Download the files [here](https://github.com/gtluu/compassxport_gui/releases) ([
 
 ## Usage
 1. Run ```run_compassxport_gui.bat``` or ```compassxport_gui.exe``` to start the program.
-  -     By default, the CompassXport executable is looked for in the default file path: ```C:\Program Files (x86)\Bruker Daltonik\CompassXport\CompassXportConsole.exe```. It may be necessary to change the file path in ```config.ini``` using a text editor or go to ```Options > Change CompassXport.exe Location```.
+  - By default, the CompassXport executable is looked for in the default file path: ```C:\Program Files (x86)\Bruker Daltonik\CompassXport\CompassXportConsole.exe```. It may be necessary to change the file path in ```config.ini``` using a text editor or go to ```Options > Change CompassXport.exe Location```.
   - Note, the executable file is called ```CompassXportConsole.exe```. The menu option will be changed to correct the name in a future update.
 
 2. Select ```.d``` format files or a folder containing one or more ```.d``` format file(s).
